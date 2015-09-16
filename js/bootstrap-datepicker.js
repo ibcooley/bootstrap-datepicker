@@ -21,13 +21,13 @@
  * ========================================================= */
 
 (function(factory){
-    if (typeof define === "function" && define.amd) {
-        define(["jquery"], factory);
-    } else if (typeof exports === 'object') {
-        factory(require('jquery'));
-    } else {
-        factory(jQuery);
-    }
+	if (typeof define === "function" && define.amd) {
+		define(["jquery"], factory);
+	} else if (typeof exports === 'object') {
+		factory(require('jquery'));
+	} else {
+		factory(jQuery);
+	}
 }(function($, undefined){
 
 	function UTCDate(){
@@ -351,33 +351,33 @@
 			}
 		},
 		_buildEvents: function(){
-            var events = {
-                keyup: $.proxy(function(e){
-                    if ($.inArray(e.keyCode, [27, 37, 39, 38, 40, 32, 13, 9]) === -1)
-                        this.update();
-                }, this),
-                keydown: $.proxy(this.keydown, this),
-                paste: $.proxy(this.paste, this)
-            };
+			var events = {
+				keyup: $.proxy(function(e){
+					if ($.inArray(e.keyCode, [27, 37, 39, 38, 40, 32, 13, 9]) === -1)
+						this.update();
+				}, this),
+				keydown: $.proxy(this.keydown, this),
+				paste: $.proxy(this.paste, this)
+			};
 
-            if (this.o.showOnFocus === true) {
-                events.focus = $.proxy(this.show, this);
-            }
+			if (this.o.showOnFocus === true) {
+				events.focus = $.proxy(this.show, this);
+			}
 
-            if (this.isInput) { // single input
-                this._events = [
-                    [this.element, events]
-                ];
-            }
-            else if (this.component && this.hasInput) { // component: input + button
-                this._events = [
-                    // For components that are not readonly, allow keyboard nav
-                    [this.element.find('input'), events],
-                    [this.component, {
-                        click: $.proxy(this.show, this)
-                    }]
-                ];
-            }
+			if (this.isInput) { // single input
+				this._events = [
+					[this.element, events]
+				];
+			}
+			else if (this.component && this.hasInput) { // component: input + button
+				this._events = [
+					// For components that are not readonly, allow keyboard nav
+					[this.element.find('input'), events],
+					[this.component, {
+						click: $.proxy(this.show, this)
+					}]
+				];
+			}
 			else if (this.element.is('div')){  // inline datepicker
 				this.isInline = true;
 			}
@@ -625,7 +625,7 @@
 				this.element.val(formatted);
 			}
 			if (this.o.invalidDate && formatted === '') {
-			    this._trigger('invalidDate');
+				this._trigger('invalidDate');
 			}
 			this.o.invalidDate = false;
 			return this;
@@ -788,7 +788,7 @@
 			}, this));
 
 			if(!dates[0]){
-			    this.o.invalidDate = true;
+				this.o.invalidDate = true;
 			}
 
 			dates = $.grep(dates, $.proxy(function(date){
@@ -905,11 +905,11 @@
 					cls.push('selected');
 				}
 				if (date.valueOf() === this.range[0]){
-          cls.push('range-start');
-        }
-        if (date.valueOf() === this.range[this.range.length-1]){
-          cls.push('range-end');
-        }
+		  cls.push('range-start');
+		}
+		if (date.valueOf() === this.range[this.range.length-1]){
+		  cls.push('range-end');
+		}
 			}
 			return cls;
 		},
@@ -947,8 +947,8 @@
 			prevMonth.setUTCDate(day - (prevMonth.getUTCDay() - this.o.weekStart + 7)%7);
 			var nextMonth = new Date(prevMonth);
 			if (prevMonth.getUTCFullYear() < 100){
-        nextMonth.setUTCFullYear(prevMonth.getUTCFullYear());
-      }
+		nextMonth.setUTCFullYear(prevMonth.getUTCFullYear());
+	  }
 			nextMonth.setUTCDate(nextMonth.getUTCDate() + 42);
 			nextMonth = nextMonth.valueOf();
 			var html = [];
@@ -1339,7 +1339,7 @@
 				if (e.keyCode === 40 || e.keyCode === 27) { // allow down to re-show picker
 					this.show();
 					e.stopPropagation();
-        }
+		}
 				return;
 			}
 			var dateChanged = false,
@@ -1633,8 +1633,8 @@
 	$.fn.datepicker = datepickerPlugin;
 
 	var defaults = $.fn.datepicker.defaults = {
-        autoclose: false,
-        autoCompute: false,
+		autoclose: false,
+		autoCompute: false,
 		beforeShowDay: $.noop,
 		beforeShowMonth: $.noop,
 		beforeShowYear: $.noop,
@@ -1723,7 +1723,7 @@
 		parseDate: function(date, format, language, autoCompute){
 			if (!date)
 				return undefined;
-			if (date instanceof Date)
+			if (date instanceof Date) 
 				return date;
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
@@ -1796,19 +1796,19 @@
 				return m.toLowerCase() === p.toLowerCase();
 			}
 
-		    function parseDateString(str){
-		        var t = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-		        if (t !== null){
-		            var d = +t[2], m = +t[1], y = +t[3];
-		            var date = new Date(y, m - 1, d);
-		            if (date.getFullYear() === y && date.getMonth() === m - 1){
-		                return date;
-		            }
-		        }
-		        return null;
-		    }
+			function parseDateString(str){
+				var t = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+				if (t !== null){
+					var d = +t[2], m = +t[1], y = +t[3];
+					var date = new Date(y, m - 1, d);
+					if (date.getFullYear() === y && date.getMonth() === m - 1){
+						return date;
+					}
+				}
+				return null;
+			}
 
-		    if (parts.length === fparts.length){
+			if (parts.length === fparts.length){
 				var cnt;
 				for (i=0, cnt = fparts.length; i < cnt; i++){
 					val = parseInt(parts[i], 10);
@@ -1827,21 +1827,21 @@
 					}
 					parsed[part] = val;
 				}
-		        if (!autoCompute) {
-                    date = parseDateString(parsed.mm + "/" + parsed.dd + "/" + parsed.yyyy);
-		        } else {
-		            var _date, s;
-		            for (i=0; i < setters_order.length; i++){
-		                s = setters_order[i];
-		                if (s in parsed && !isNaN(parsed[s])){
-		                    _date = new Date(date);
-		                    setters_map[s](_date, parsed[s]);
-		                    if (!isNaN(_date))
-		                        date = _date;
-		                }
-		            }
-		        }
-		    }
+				if (!autoCompute) {
+					date = parseDateString(parsed.mm + "/" + parsed.dd + "/" + parsed.yyyy);
+				} else {
+					var _date, s;
+					for (i=0; i < setters_order.length; i++){
+						s = setters_order[i];
+						if (s in parsed && !isNaN(parsed[s])){
+							_date = new Date(date);
+							setters_map[s](_date, parsed[s]);
+							if (!isNaN(_date))
+								date = _date;
+						}
+					}
+				}
+			}
 			return date;
 		},
 		formatDate: function(date, format, language){
@@ -1871,9 +1871,9 @@
 			return date.join('');
 		},
 		headTemplate: '<thead>'+
-			              '<tr>'+
-			                '<th colspan="7" class="datepicker-title"></th>'+
-			              '</tr>'+
+						  '<tr>'+
+							'<th colspan="7" class="datepicker-title"></th>'+
+						  '</tr>'+
 							'<tr>'+
 								'<th class="prev">&#171;</th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
