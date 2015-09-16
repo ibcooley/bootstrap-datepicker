@@ -1831,7 +1831,7 @@
 					var dateStr = (parsed.M || parsed.MM || parsed.mm || parsed.m) + "/" + (parsed.dd || parsed.d) + "/" + (parsed.yyyy || parsed.yy);
 					var t = dateStr.match(/^(\d\d*)\/(\d\d*)\/(\d{2}|\d{4})$/);
 				    if (t === null) {
-				        return null
+				        return null;
 				    }
 				}
 			}
