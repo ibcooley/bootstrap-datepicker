@@ -1797,15 +1797,14 @@
 			}
 
 			function parseDateString(str){
-				var t = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+			    var t = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
 				if (t !== null){
 					var d = +t[2], m = +t[1], y = +t[3];
-					var date = new Date(y, m - 1, d);
-					if (date.getFullYear() === y && date.getMonth() === m - 1){
-						return date;
+					var date = new Date(Date.UTC(y, m - 1, d));
+					if (date.getFullYear() === y && date.getMonth() === m - 1) {
+					    return date;
 					}
 				}
-				return null;
 			}
 
 			if (parts.length === fparts.length){
@@ -1828,7 +1827,7 @@
 					parsed[part] = val;
 				}
 				if (!autoCompute) {
-					date = parseDateString(parsed.mm + "/" + parsed.dd + "/" + parsed.yyyy);
+				    date = parseDateString((parsed.mm || parsed.m || parsed.M || parsed.MM) + "/" + (parsed.dd || parsed.d) + "/" + (parsed.yyyy || parsed.yy));
 				} else {
 					var _date, s;
 					for (i=0; i < setters_order.length; i++){
