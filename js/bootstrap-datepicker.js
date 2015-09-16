@@ -1723,7 +1723,7 @@
 		parseDate: function(date, format, language, autoCompute){
 			if (!date)
 				return undefined;
-			if (date instanceof Date) 
+			if (date instanceof Date)
 				return date;
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
