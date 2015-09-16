@@ -624,10 +624,10 @@
 			else {
 				this.element.val(formatted);
 			}
-			if (this.o.invalidDate && formatted === '') {
-				this._trigger('invalidDate');
-			}
-			this.o.invalidDate = false;
+			//if (this.o.invalidDate && formatted === '') {
+			//	this._trigger('invalidDate');
+			//}
+			//this.o.invalidDate = false;
 			return this;
 		},
 
@@ -1761,7 +1761,7 @@
 						return d.setUTCFullYear(v);
 					},
 					yy: function(d,v){
-						return d.setUTCFullYear(2000+v);
+						return d.setUTCFullYear(v/1000 > 0 ? v : 2000+v);
 					},
 					m: function(d,v){
 						if (isNaN(d))
@@ -1796,17 +1796,6 @@
 				return m.toLowerCase() === p.toLowerCase();
 			}
 
-			function parseDateString(str){
-			    var t = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-				if (t !== null){
-					var d = +t[2], m = +t[1], y = +t[3];
-					var date = new Date(Date.UTC(y, m - 1, d));
-					if (date.getFullYear() === y && date.getMonth() === m - 1) {
-					    return date;
-					}
-				}
-			}
-
 			if (parts.length === fparts.length){
 				var cnt;
 				for (i=0, cnt = fparts.length; i < cnt; i++){
@@ -1826,19 +1815,24 @@
 					}
 					parsed[part] = val;
 				}
-				if (!autoCompute) {
-				    date = parseDateString((parsed.mm || parsed.m || parsed.M || parsed.MM) + "/" + (parsed.dd || parsed.d) + "/" + (parsed.yyyy || parsed.yy));
-				} else {
-					var _date, s;
-					for (i=0; i < setters_order.length; i++){
-						s = setters_order[i];
-						if (s in parsed && !isNaN(parsed[s])){
-							_date = new Date(date);
-							setters_map[s](_date, parsed[s]);
-							if (!isNaN(_date))
-								date = _date;
-						}
+				
+				var _date, s;
+				for (i=0; i < setters_order.length; i++){
+					s = setters_order[i];
+					if (s in parsed && !isNaN(parsed[s])){
+						_date = new Date(date);
+						setters_map[s](_date, parsed[s]);
+						if (!isNaN(_date))
+							date = _date;
 					}
+				}
+
+				if (!autoCompute) {
+					var dateStr = (parsed.M || parsed.MM || parsed.mm || parsed.m) + "/" + (parsed.dd || parsed.d) + "/" + (parsed.yyyy || parsed.yy);
+					var t = dateStr.match(/^(\d\d*)\/(\d\d*)\/(\d{2}|\d{4})$/);
+				    if (t === null) {
+				        return null
+				    }
 				}
 			}
 			return date;
