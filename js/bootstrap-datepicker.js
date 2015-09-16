@@ -1825,7 +1825,7 @@
 
 				if (!autoCompute) {
 				    var dateStr = (parsed.M || parsed.MM || parsed.mm || parsed.m) + "/" + (parsed.dd || parsed.d) + "/" + (parsed.yyyy || parsed.yy);
-				    var t = dateStr.match(/^(\d\d*)\/(\d\d*)\/(\d{4})$/);
+				    var t = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
 				    if (t === null) {
 				        date = null;
 				    }
