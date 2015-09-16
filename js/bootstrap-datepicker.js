@@ -624,10 +624,6 @@
 			else {
 				this.element.val(formatted);
 			}
-			//if (this.o.invalidDate && formatted === '') {
-			//	this._trigger('invalidDate');
-			//}
-			//this.o.invalidDate = false;
 			return this;
 		},
 
@@ -1828,10 +1824,10 @@
 				}
 
 				if (!autoCompute) {
-					var dateStr = (parsed.M || parsed.MM || parsed.mm || parsed.m) + "/" + (parsed.dd || parsed.d) + "/" + (parsed.yyyy || parsed.yy);
-					var t = dateStr.match(/^(\d\d*)\/(\d\d*)\/(\d{2}|\d{4})$/);
+				    var dateStr = (parsed.M || parsed.MM || parsed.mm || parsed.m) + "/" + (parsed.dd || parsed.d) + "/" + (parsed.yyyy || parsed.yy);
+				    var t = dateStr.match(/^(\d\d*)\/(\d\d*)\/(\d{4})$/);
 				    if (t === null) {
-				        return null;
+				        date = null;
 				    }
 				}
 			}
