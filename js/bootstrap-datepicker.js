@@ -1634,7 +1634,7 @@
 
 	var defaults = $.fn.datepicker.defaults = {
 		autoclose: false,
-		autoCompute: false,
+		autoCompute: true,
 		beforeShowDay: $.noop,
 		beforeShowMonth: $.noop,
 		beforeShowYear: $.noop,
