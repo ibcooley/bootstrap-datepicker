@@ -1795,18 +1795,20 @@
 					p = parts[i].slice(0, m.length);
 				return m.toLowerCase() === p.toLowerCase();
 			}
-            function parseDateString(str){
-                var t = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-                if (t !== null) {
-                    var d = +t[2], m = +t[1], y = +t[3];
-                    var date = new Date(y, m -1, d);
-                    if (date.getFullYear() === y && date.getMonth() === m - 1) {
-                        return date;
-                    }
-			    }
-			    return null;
-			}
-			if (parts.length === fparts.length){
+
+		    function parseDateString(str){
+		        var t = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+		        if (t !== null){
+		            var d = +t[2], m = +t[1], y = +t[3];
+		            var date = new Date(y, m - 1, d);
+		            if (date.getFullYear() === y && date.getMonth() === m - 1){
+		                return date;
+		            }
+		        }
+		        return null;
+		    }
+
+		    if (parts.length === fparts.length){
 				var cnt;
 				for (i=0, cnt = fparts.length; i < cnt; i++){
 					val = parseInt(parts[i], 10);
@@ -1825,21 +1827,21 @@
 					}
 					parsed[part] = val;
 				}
-				if (!autoCompute){
-		            date = parseDateString(parsed.mm + "/" + parsed.dd + "/" + parsed.yyyy);
-				} else {
-				    var _date, s;
-				    for (i=0; i < setters_order.length; i++){
-					    s = setters_order[i];
-					    if (s in parsed && !isNaN(parsed[s])){
-						    _date = new Date(date);
-						    setters_map[s](_date, parsed[s]);
-						    if (!isNaN(_date))
-							    date = _date;
-					    }
-				    }
-                }
-			}
+		        if (!autoCompute) {
+                    date = parseDateString(parsed.mm + "/" + parsed.dd + "/" + parsed.yyyy);
+		        } else {
+		            var _date, s;
+		            for (i=0; i < setters_order.length; i++){
+		                s = setters_order[i];
+		                if (s in parsed && !isNaN(parsed[s])){
+		                    _date = new Date(date);
+		                    setters_map[s](_date, parsed[s]);
+		                    if (!isNaN(_date))
+		                        date = _date;
+		                }
+		            }
+		        }
+		    }
 			return date;
 		},
 		formatDate: function(date, format, language){
